@@ -39,6 +39,19 @@ RCT_EXPORT_METHOD(Show:(nonnull NSNumber *)view props:(NSDictionary *)props)
     toolTip.dismissesOnTap = [clickToHide boolValue];
     toolTip.padding = UIEdgeInsetsMake(6, 8, 6, 8);
     
+    if (position != nil) {
+        NSDictionary *mapper = @{
+                                 @"1" : @(SexyTooltipArrowDirectionLeft),
+                                 @"2" : @(SexyTooltipArrowDirectionRight),
+                                 @"3" : @(SexyTooltipArrowDirectionDown),
+                                 @"4" : @(SexyTooltipArrowDirectionUp),
+                                 };
+        NSNumber *permittedArrowDirection = mapper[[position stringValue]];
+        if (permittedArrowDirection != nil) {
+            tooltip.permittedArrowDirections = @[position];
+        }
+    }
+
     if ([shadow boolValue]) {
         toolTip.hasShadow = YES;
     }
